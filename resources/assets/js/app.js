@@ -17,6 +17,7 @@ window.Vue = require('vue');
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('short-urls', require('./components/ShortUrls.vue'));
+Vue.component('create-short-url', require('./components/CreateShortUrl.vue'));
 window.onload = function () {
     const app = new Vue({
         el: '#app'

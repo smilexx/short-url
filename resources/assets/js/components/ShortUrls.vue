@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">You short urls</div>
 
@@ -16,8 +16,8 @@
                             </thead>
                             <tbody>
                                 <tr v-for="item of shortUrls">
-                                    <td>{{ item.url }}</td>
-                                    <td>{{ item.short_url }}</td>
+                                    <td><a href="item.url">{{ item.url }}</a></td>
+                                    <td><a href="item.short_url">{{ item.short_url }}</a></td>
                                     <td>{{ item.views }}</td>
                                     <td>{{ item.created_at }}</td>
                                     <td>{{ item.updated_at }}</td>
@@ -34,10 +34,9 @@
 <script>
     export default {
         mounted() {
-            console.log('Component mounted.')
             this.loadUrls();
         },
-        data: function () {
+        data() {
             return {
                 message: 'hello',
                 shortUrls: []
