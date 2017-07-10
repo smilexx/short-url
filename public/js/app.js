@@ -41835,7 +41835,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     self.error = result.data.error;
                 }
             }).catch(function (error) {
-                self.error = error.response.data.error;
+                self.error = error.response.data.error.original;
             });
         },
         clearErrors: function clearErrors() {

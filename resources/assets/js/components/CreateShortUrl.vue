@@ -61,7 +61,7 @@
                         }
                     })
                     .catch(function (error) {
-                        self.error = error.response.data.error;
+                        self.error = error.response.data.error.original;
                     })
             },
             clearErrors(){
