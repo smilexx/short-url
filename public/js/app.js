@@ -41646,17 +41646,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
         console.log('Component mounted.');
+        this.loadUrls();
     },
 
     data: function data() {
         return {
-            message: 'hello'
-
+            message: 'hello',
+            shortUrls: []
         };
+    },
+    methods: {
+        loadUrls: function loadUrls() {
+            var self = this;
+            window.axios.get('/api/short-url').then(function (result) {
+                self.shortUrls = result.data.data;
+            });
+        }
     }
 });
 
@@ -41665,8 +41691,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "container"
   }, [_c('div', {
@@ -41679,7 +41703,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel-heading"
   }, [_vm._v("You short urls")]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
-  })])])])])
+  }, [_c('table', {
+    staticClass: "table"
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.shortUrls), function(item) {
+    return _c('tr', [_c('td', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.short_url))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.views))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.created_at))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.updated_at))])])
+  }))])])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', [_c('th', [_vm._v("Url")]), _vm._v(" "), _c('th', [_vm._v("Short")]), _vm._v(" "), _c('th', [_vm._v("Count redirects")]), _vm._v(" "), _c('th', [_vm._v("Created")]), _vm._v(" "), _c('th', [_vm._v("Last redirect")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

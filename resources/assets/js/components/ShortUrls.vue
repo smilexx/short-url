@@ -6,7 +6,24 @@
                     <div class="panel-heading">You short urls</div>
 
                     <div class="panel-body">
-
+                        <table class="table">
+                            <thead>
+                                <th>Url</th>
+                                <th>Short</th>
+                                <th>Count redirects</th>
+                                <th>Created</th>
+                                <th>Last redirect</th>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item of shortUrls">
+                                    <td>{{ item.url }}</td>
+                                    <td>{{ item.short_url }}</td>
+                                    <td>{{ item.views }}</td>
+                                    <td>{{ item.created_at }}</td>
+                                    <td>{{ item.updated_at }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -18,11 +35,21 @@
     export default {
         mounted() {
             console.log('Component mounted.')
+            this.loadUrls();
         },
         data: function () {
             return {
                 message: 'hello',
-
+                shortUrls: []
+            }
+        },
+        methods: {
+            loadUrls: function () {
+                var self = this;
+                window.axios.get('/api/short-url')
+                    .then(function(result){
+                        self.shortUrls = result.data.data;
+                    });
             }
         }
     }

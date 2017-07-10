@@ -26,3 +26,9 @@ Route::get('/:short_url', function ($short_url) {
 Auth::routes();
 
 Route::get('/create', 'PageController@createUrl')->name('create_short_url')->middleware('auth');
+
+Route::group(['middleware' => ['auth'], 'prefix' => 'api'], function () {
+    Route::resource('short-url', 'Api\ShortUrlApiController', ['only' => [
+        'index', 'store', 'destroy'
+    ]]);
+});
