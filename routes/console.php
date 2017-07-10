@@ -16,3 +16,8 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+Artisan::command('url:check {days}', function ($days) {
+    $count = \App\ShortUrl::whereDate('created_at', '<=', \Carbon\Carbon::now()->subDays($days))->forceDelete();
+    $this->comment('Complete. Delete url: '.$count);
+})->describe('Display an inspiring quote');
