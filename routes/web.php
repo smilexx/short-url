@@ -12,5 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
+
+Route::get('/:short_url', function ($short_url) {
+
+});
+
+Auth::routes();
+
+Route::get('/create', 'PageController@createUrl')->name('create_short_url')->middleware('auth');
