@@ -11,21 +11,32 @@
 |
 */
 
-Route::get('/home', function () {
-    return redirect('create');
-});
 
 Route::get('/', function () {
-    return redirect('login');
+    return view('home');
 });
 
-Route::get('/:short_url', function ($short_url) {
 
+
+Route::get('/{short_url}', 'ShortUrlController@index');
+
+
+
+
+Route::group(['prefix' => 'panel'], function () {
+    Route::get('/create', 'PageController@createUrl')->name('create_short_url')->middleware('auth');
+
+    Route::get('/not-found', function () {
+        return view('not-found');
+    });
+
+    Route::get('/home', function () {
+        return redirect('/');
+    });
+
+
+    Auth::routes();
 });
-
-Auth::routes();
-
-Route::get('/create', 'PageController@createUrl')->name('create_short_url')->middleware('auth');
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'api'], function () {
     Route::resource('short-url', 'Api\ShortUrlApiController', ['only' => [

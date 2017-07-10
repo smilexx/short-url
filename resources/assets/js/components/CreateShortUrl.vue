@@ -6,12 +6,15 @@
                     <div class="panel-heading">Add short url</div>
 
                     <div class="panel-body">
-                        <div v-if="error || success" class="alert" v-bind:class="{ error: 'alert-danger', success: 'alert-success' }">
+                        <div v-if="error" class="alert alert-danger">
                             <button class="close" v-on:click="clearErrors()" aria-label="close">&times;</button>
                             {{ error }}
+                        </div>
+                        <div v-if="success" class="alert alert-success">
+                            <button class="close" v-on:click="clearErrors()" aria-label="close">&times;</button>
                             <div v-if="success">
                                 You url add
-                                <a href="success">{{ success }}</a>
+                                <a v-bind:href="success" target="_blank">{{ success }}</a>
                             </div>
                         </div>
                         <div class="form-group">
@@ -49,8 +52,10 @@
                 var self= this;
                 window.axios.post('/api/short-url', { url: this.url, short_url: this.short_url })
                     .then(function (result) {
-                        if (result.data.success){
+                        if (result.data.status){
                             self.success = result.data.data.short_url;
+                            self.url = '';
+                            self.short_url = '';
                         }else{
                             self.error = result.data.error;
                         }

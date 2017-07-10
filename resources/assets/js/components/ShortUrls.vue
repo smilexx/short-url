@@ -6,7 +6,7 @@
                     <div class="panel-heading">You short urls</div>
 
                     <div class="panel-body">
-                        <table class="table">
+                        <table class="table table-striped">
                             <thead>
                                 <th>Url</th>
                                 <th>Short</th>
@@ -16,8 +16,8 @@
                             </thead>
                             <tbody>
                                 <tr v-for="item of shortUrls">
-                                    <td><a href="item.url">{{ item.url }}</a></td>
-                                    <td><a href="item.short_url">{{ item.short_url }}</a></td>
+                                    <td><a v-bind:href="item.url" target="_blank">{{ item.url }}</a></td>
+                                    <td><a v-bind:href="item.short_url" target="_blank">{{ item.short_url }}</a></td>
                                     <td>{{ item.views }}</td>
                                     <td>{{ item.created_at }}</td>
                                     <td>{{ item.updated_at }}</td>

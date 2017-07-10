@@ -19,7 +19,7 @@ class ShortUrlApiController extends ApiController
      */
     public function index()
     {
-        $this->_data = Auth::user()->short_urls;
+        $this->_data = Auth::user()->short_urls()->orderBy('id','DESC')->get();
         return $this->result();
     }
 
@@ -43,13 +43,19 @@ class ShortUrlApiController extends ApiController
     {
         $this->validate($request, [
             'url' => 'required|url',
-            'short_url' => 'min:'.ShortUrl::LENGTH_STRING_SHORT_URL_MIN.'|max:'.ShortUrl::LENGTH_STRING_SHORT_URL_MAX.'|unique:short_urls,short_url'
         ]);
 
         $health = Ping::check($request->url);
         if($health == 200) {
             $shortUrl = new ShortUrl();
-            $shortUrl->short_url = is_null($request->short_url) ? ShortUrl::generateShortUrl() : $request->short_url;
+            if (!is_null($request->short_url)){
+                $this->validate($request, [
+                    'short_url' => 'min:'.ShortUrl::LENGTH_STRING_SHORT_URL_MIN.'|max:'.ShortUrl::LENGTH_STRING_SHORT_URL_MAX.'|unique:short_urls,short_url'
+                ]);
+                $shortUrl->short_url = $request->short_url;
+            }else{
+                $shortUrl->short_url = ShortUrl::generateShortUrl();
+            }
             $shortUrl->user_id = Auth::user()->id;
             $shortUrl->url = $request->url;
             $shortUrl->save();

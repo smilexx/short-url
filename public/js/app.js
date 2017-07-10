@@ -41704,15 +41704,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("You short urls")]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
   }, [_c('table', {
-    staticClass: "table"
+    staticClass: "table table-striped"
   }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.shortUrls), function(item) {
     return _c('tr', [_c('td', [_c('a', {
       attrs: {
-        "href": "item.url"
+        "href": item.url,
+        "target": "_blank"
       }
     }, [_vm._v(_vm._s(item.url))])]), _vm._v(" "), _c('td', [_c('a', {
       attrs: {
-        "href": "item.short_url"
+        "href": item.short_url,
+        "target": "_blank"
       }
     }, [_vm._v(_vm._s(item.short_url))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.views))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.created_at))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.updated_at))])])
   }))])])])])])])
@@ -41806,6 +41808,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {},
@@ -41822,8 +41827,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         addUrl: function addUrl() {
             var self = this;
             window.axios.post('/api/short-url', { url: this.url, short_url: this.short_url }).then(function (result) {
-                if (result.data.success) {
+                if (result.data.status) {
                     self.success = result.data.data.short_url;
+                    self.url = '';
+                    self.short_url = '';
                 } else {
                     self.error = result.data.error;
                 }
@@ -41855,11 +41862,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel-heading"
   }, [_vm._v("Add short url")]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
-  }, [(_vm.error || _vm.success) ? _c('div', {
-    staticClass: "alert",
-    class: {
-      error: 'alert-danger', success: 'alert-success'
-    }
+  }, [(_vm.error) ? _c('div', {
+    staticClass: "alert alert-danger"
   }, [_c('button', {
     staticClass: "close",
     attrs: {
@@ -41870,9 +41874,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.clearErrors()
       }
     }
-  }, [_vm._v("×")]), _vm._v("\n                        " + _vm._s(_vm.error) + "\n                        "), (_vm.success) ? _c('div', [_vm._v("\n                            You url add\n                            "), _c('a', {
+  }, [_vm._v("×")]), _vm._v("\n                        " + _vm._s(_vm.error) + "\n                    ")]) : _vm._e(), _vm._v(" "), (_vm.success) ? _c('div', {
+    staticClass: "alert alert-success"
+  }, [_c('button', {
+    staticClass: "close",
     attrs: {
-      "href": "success"
+      "aria-label": "close"
+    },
+    on: {
+      "click": function($event) {
+        _vm.clearErrors()
+      }
+    }
+  }, [_vm._v("×")]), _vm._v(" "), (_vm.success) ? _c('div', [_vm._v("\n                            You url add\n                            "), _c('a', {
+    attrs: {
+      "href": _vm.success,
+      "target": "_blank"
     }
   }, [_vm._v(_vm._s(_vm.success))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "form-group"

@@ -7,3 +7,9 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+td {
+  word-wrap: break-word;
+  min-width: 100px;
+  max-width: 220px;
+}
