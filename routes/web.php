@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('/home', function () {
+    return redirect('create');
+});
+
 Route::get('/', function () {
     return redirect('login');
 });
