@@ -13,6 +13,7 @@
                                 <th>Count redirects</th>
                                 <th>Created</th>
                                 <th>Last redirect</th>
+                                <th></th>
                             </thead>
                             <tbody>
                                 <tr v-for="item of shortUrls">
@@ -21,6 +22,7 @@
                                     <td>{{ item.views }}</td>
                                     <td>{{ item.created_at }}</td>
                                     <td>{{ item.updated_at }}</td>
+                                    <th><button class="btn btn-danger" v-on:click="deleteUrl(item)">Delete</button></th>
                                 </tr>
                             </tbody>
                         </table>
@@ -49,6 +51,15 @@
                     .then(function(result){
                         self.shortUrls = result.data.data;
                     });
+            },
+            deleteUrl: function (item) {
+                var self = this;
+                window.axios.delete('/api/short-url/'+item.id)
+                .then(function (result) {
+                    if (result.data.status){
+                        self.loadUrls();
+                    }
+                })
             }
         }
     }

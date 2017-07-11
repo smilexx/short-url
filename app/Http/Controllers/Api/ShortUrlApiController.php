@@ -106,8 +106,9 @@ class ShortUrlApiController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ShortUrl $shortUrl)
     {
-        //
+        $shortUrl->delete();
+        return $this->result();
     }
 }
