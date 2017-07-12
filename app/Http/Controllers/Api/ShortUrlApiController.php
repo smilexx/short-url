@@ -49,9 +49,8 @@ class ShortUrlApiController extends ApiController
         if($health == 200) {
             $shortUrl = new ShortUrl();
             if (!is_null($request->short_url)){
-                $request->short_url = str_replace('#','',$request->short_url);
                 $this->validate($request, [
-                    'short_url' => 'min:'.ShortUrl::LENGTH_STRING_SHORT_URL_MIN.'|max:'.ShortUrl::LENGTH_STRING_SHORT_URL_MAX.'|unique:short_urls,short_url'
+                    'short_url' => 'min:'.ShortUrl::LENGTH_STRING_SHORT_URL_MIN.'|max:'.ShortUrl::LENGTH_STRING_SHORT_URL_MAX.'|unique:short_urls,short_url|regex:/^[a-zA-Z0-9]*$/'
                 ]);
                 $shortUrl->short_url = $request->short_url;
             }else{
