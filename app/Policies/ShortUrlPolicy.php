@@ -54,6 +54,6 @@ class ShortUrlPolicy
      */
     public function delete(User $user, ShortUrl $shortUrl)
     {
-        return false;//$shortUrl->user_id == $user->id;
+        return $shortUrl->user_id == $user->id;
     }
 }
