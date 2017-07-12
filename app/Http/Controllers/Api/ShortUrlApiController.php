@@ -67,40 +67,6 @@ class ShortUrlApiController extends ApiController
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -108,7 +74,11 @@ class ShortUrlApiController extends ApiController
      */
     public function destroy(ShortUrl $shortUrl)
     {
-        $shortUrl->delete();
+        if (Auth::user()->can('delete', $shortUrl)){
+            $shortUrl->delete();
+        }else{
+            throw new Exception('You don\'t have access', 403);
+        }
         return $this->result();
     }
 }

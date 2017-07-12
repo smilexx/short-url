@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Log;
 
 class ShortUrlController extends Controller
 {
+    /**
+     * Treatment user short url request
+     * @param Request $request
+     * @param $short_url
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function index(Request $request, $short_url){
         $shortUrl = ShortUrl::where('short_url', $short_url)->first();
         if (is_null($shortUrl)){
@@ -17,7 +23,7 @@ class ShortUrlController extends Controller
             Log::info("Redirect to id: $shortUrl->id from ip: $ip ");
             $shortUrl->views += 1;
             $shortUrl->save();
-            return redirect($shortUrl->url);
+            return redirect($shortUrl->url, 301);
         }
     }
 }
