@@ -1,35 +1,35 @@
-**Веб-приложение для создания коротких ссылок.**
+**Web application for creating short links.**
 
-Для развертывания приложения, после клонирования, необходимо выполнить команду:
+To deploy the application, after cloning, you must run the command:
 
 `composer update`
 
-Скопировать файл `.env.example` и переименовать его в `.env`.
+Copy file `.env.example` and rename it to `.env`.
 
-Выполнить команду для генерации ключа приложения:
+Execute the command to generate the application key:
 
 `php artisan key:generate`
 
-Выполнить миграцию базы данных командой:
+Migrate the database with the command:
 
 `php artisan migrate`
 
-Размер короткой ссылки определяется в классе `ShortUrl` константами 
+The size of a short link is defined in the class `ShortUrl` constants 
 `LENGTH_STRING_SHORT_URL_MIN` и `LENGTH_STRING_SHORT_URL_MAX`
 
-Для удаления ссылок которым долго находятся в базе можно воспользоватся командой
+To delete links that are long in the database, you can use the command:
 
 `php artisan url:check 15`
 
-Параметром указывается количество дней, которые отсчитываются для удаления ссылки.
-Для постояного удаления ссылок можно использовать **cron**.
+The parameter specifies the number of days that are counted to delete the link.
+To run this command, you can use **cron**.
 
-Api для создания ссылок находится по адресу `api/short-url`
+Api for creating links is at `api/short-url`
 
-_Get_ запрос, отдает список всех ссылок авторизованого пользователя.
+_Get_ request, returns a list of all the references of an authorized user.
 
-_Post_ запрос, создает новую ссылку. Здесь производится проверка ссылки и короткой ссылки если её указал пользователь.
+_Post_ request, creates a new link. Here, the link is checked and a short link is shown if the user specified it.
 
-_Delete_ запрос, удаляет ссылку, если она принадлежит авторизованому пользователю.
+_Delete_ request, deletes the link if it belongs to an authorized user.
 
-Пример можно посмотреть [здесь](http://umbrella.golofaev.ru)
+[Example](http://umbrella.golofaev.ru)
